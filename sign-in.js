@@ -13,20 +13,7 @@ $ = function (query) {
 
 firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
-    if (user.email != '' || user.email != null) {
-      window.location.href = '../lobby/';
-    } else {
-      firebase
-        .auth()
-        .currentUser.delete()
-        .then(function () {
-          Swal.fire('Facebook Login Error', 'Please authorise access to your email.', 'error');
-          firebase.auth().signOut();
-        })
-        .catch(function (error) {
-          handleError(error);
-        });
-    }
+    window.location.href = '../lobby/';
   }
 });
 
@@ -34,22 +21,6 @@ $('#btnSignInWithGoogle').addEventListener('click', function () {
   this.disabled = true;
 
   let provider = new firebase.auth.GoogleAuthProvider();
-  firebase
-    .auth()
-    .signInWithPopup(provider)
-    .then(function (result) {})
-    .catch(function (error) {
-      handleError(error);
-    });
-
-  this.disabled = false;
-});
-
-$('#btnSignInWithFacebook').addEventListener('click', function () {
-  this.disabled = true;
-
-  let provider = new firebase.auth.FacebookAuthProvider();
-  provider.addScope('email');
   firebase
     .auth()
     .signInWithPopup(provider)

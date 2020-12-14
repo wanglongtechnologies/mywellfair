@@ -2,6 +2,9 @@
 
 function handleError(error) {
   console.log(error);
+  if (error.code == 'auth/invalid-email') {
+    Swal.fire('Invalid email', 'Please use a different email instead.', 'error');
+  }
 }
 
 $ = function (query) {
@@ -29,7 +32,6 @@ $('#btnSignInWithGoogle').addEventListener('click', function () {
   this.disabled = false;
 });
 
-/*
 $('#btnSignInWithFacebook').addEventListener('click', function () {
   this.disabled = true;
 
@@ -45,7 +47,6 @@ $('#btnSignInWithFacebook').addEventListener('click', function () {
 
   this.disabled = false;
 });
-*/
 
 $('#btnSignInWithEmailLink').addEventListener('click', function () {
   this.disabled = true;

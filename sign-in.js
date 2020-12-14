@@ -13,7 +13,20 @@ $ = function (query) {
 
 firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
-    window.location.href = '../lobby/';
+    if (user.email != '' || user.email != null) {
+      window.location.href = '../lobby/';
+    } else {
+      firebase
+        .auth()
+        .currentUser.delete()
+        .then(function () {
+          Swal.fire('Facebook Login Error', 'Please authorise access to your email.', 'error');
+          firebase.auth().signOut();
+        })
+        .catch(function (error) {
+          handleError(error);
+        });
+    }
   }
 });
 
